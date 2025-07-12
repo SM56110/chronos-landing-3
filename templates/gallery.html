@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Chronos — Галерея Воспоминаний</title>
+  <style>
+    body { font-family: Arial; padding: 2rem; background: #f3f3f3; }
+    .memory { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; background: white; border-radius: 8px; }
+    img { max-width: 300px; display: block; margin: 0.5rem 0; }
+    audio { margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>🕰️ Галерея воспоминаний</h1>
+
+  <form action="/upload/memory" method="post" enctype="multipart/form-data">
+    <h2>➕ Добавить воспоминание</h2>
+    <input type="text" name="title" placeholder="Заголовок" required><br><br>
+    <textarea name="description" placeholder="Описание" rows="3" required></textarea><br><br>
+    Фото: <input type="file" name="photo" accept="image/*"><br>
+    Аудио: <input type="file" name="audio" accept="audio/*"><br><br>
+    <button type="submit">Создать NFT</button>
+  </form>
+
+  <hr>
+
+  {% for mem in memories %}
+    <div class="memory">
+      <h3>{{ mem.title }}</h3>
+      <p>{{ mem.description }}</p>
+      {% if mem.photo %}
+        <img src="{{ mem.photo }}" alt="Фото">
+      {% endif %}
+      {% if mem.audio %}
+        <audio controls src="{{ mem.audio }}"></audio>
+      {% endif %}
+      <small>ID: {{ mem.id }}</small>
+    </div>
+  {% endfor %}
+</body>
+</html>
